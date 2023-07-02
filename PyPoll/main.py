@@ -11,7 +11,7 @@ cand2 = 0
 name = "x"
 with open(csv_file, 'r') as file:
     reader = csv.DictReader(file)
-
+# iterates through file to capture count of votes and identify the candidate names:
     for row in reader:
         vote_counter = vote_counter + 1
         if name != row[column_name]:
@@ -26,12 +26,12 @@ with open(csv_file, 'r') as file:
         elif row[column_name] == candidate_name[2]:
             cand2 = cand2 + 1
 
-
-   
+# convert vote counts to percentages:   
 cand_percent = round((cand/vote_counter) * 100,3)        
 cand1_percent = round((cand1/vote_counter) * 100,3)  
 cand2_percent = round((cand2/vote_counter) * 100,3)
 
+# identifying winner using percentages:
 for person in candidate_name:
     if cand_percent > cand1_percent and cand_percent > cand2_percent:
         winner = candidate_name[0]
@@ -39,7 +39,8 @@ for person in candidate_name:
         winner = candidate_name[1]
     elif cand2_percent > cand_percent and cand2_percent > cand1_percent:
         winner = candidate_name[2]
-        
+
+#prints to terminal: 
 print("Election Results")
 print("-------------------------")
 print(f"Total Votes: {vote_counter}")
@@ -51,6 +52,7 @@ print("-------------------------")
 print(f"Winner: {winner}")
 print("-------------------------")
 
+# creates and writes to text file:
 txt_file = os.path.join("Analysis", "results.txt")
 with open(txt_file, 'w') as f:
     f.write("Election Results\n")
